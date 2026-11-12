@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SwiftURL - Real-Time Analytics Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header style="text-align: left; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+      <div>
+        <a href="/" class="btn btn-secondary btn-sm" style="margin-bottom: 0.75rem;">&larr; Back to Shortener</a>
+        <h1 style="font-size: 2rem;">Click Analytics</h1>
+        <p id="targetUrlSubtitle" style="word-break: break-all; max-width: 700px; color: var(--text-muted);">
+          Loading metrics...
+        </p>
+      </div>
+      <div>
+        <a id="testShortLinkBtn" href="#" target="_blank" class="btn btn-primary">Test Short URL &rarr;</a>
+      </div>
+    </header>
+
+    <!-- Key Metrics Grid -->
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-title">TOTAL CLICKS</div>
+        <div class="stat-value" id="statTotalClicks">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-title">STATUS</div>
+        <div class="stat-value" id="statStatus">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-title">CREATED DATE</div>
+        <div class="stat-value" style="font-size: 1.25rem;" id="statCreatedAt">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-title">EXPIRATION</div>
+        <div class="stat-value" style="font-size: 1.25rem;" id="statExpiresAt">Never</div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="card">
+      <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.25rem;">Clicks Timeline</h2>
+      <div style="height: 280px; position: relative;">
+        <canvas id="timelineChart"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-grid chart-grid-2">
+      <div class="card">
+        <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.25rem;">Top Browsers</h2>
+        <div style="height: 220px; position: relative;">
+          <canvas id="browserChart"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.25rem;">Operating Systems</h2>
+        <div style="height: 220px; position: relative;">
+          <canvas id="osChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Clicks Stream -->
+    <div class="card">
+      <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.25rem;">Recent Click Stream</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>IP Address</th>
+              <th>Device</th>
+              <th>Browser</th>
+              <th>OS</th>
+              <th>Referer</th>
+            </tr>
+          </thead>
+          <tbody id="clickLogsBody">
+            <tr>
+              <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 2rem;">No clicks recorded yet. Click the short link to generate analytics!</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/analytics.js"></script>
+</body>
+</html>
