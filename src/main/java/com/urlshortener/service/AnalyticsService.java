@@ -77,7 +77,7 @@ public class AnalyticsService {
         response.setClicksByBrowser(toMap(clickAnalyticsRepository.countClicksByBrowser(shortCode)));
         response.setClicksByOperatingSystem(toMap(clickAnalyticsRepository.countClicksByOperatingSystem(shortCode)));
         response.setClicksByDeviceType(toMap(clickAnalyticsRepository.countClicksByDeviceType(shortCode)));
-        response.setTopReferrers(toMap(clickAnalyticsRepository.countClicksByReferer(shortCode, PageRequest.of(0, 10))));
+        response.setTopReferrers(toMap(clickAnalyticsRepository.countClicksByReferer(shortCode, 10)));
 
         // Fetch recent 50 clicks
         List<ClickAnalytics> recentList = clickAnalyticsRepository.findByShortCodeOrderByClickedAtDesc(
@@ -140,5 +140,6 @@ public class AnalyticsService {
         return ip;
     }
 }
+
 
 
