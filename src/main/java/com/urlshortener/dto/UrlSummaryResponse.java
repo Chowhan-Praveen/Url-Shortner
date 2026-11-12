@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class UrlSummaryResponse {
 
-    private Long id;
+    private String id;
     private String shortCode;
     private String shortUrl;
     private String originalUrl;
@@ -18,7 +18,7 @@ public class UrlSummaryResponse {
     public UrlSummaryResponse() {
     }
 
-    public UrlSummaryResponse(Long id, String shortCode, String shortUrl, String originalUrl,
+    public UrlSummaryResponse(String id, String shortCode, String shortUrl, String originalUrl,
                               String customAlias, LocalDateTime createdAt, LocalDateTime expiresAt,
                               long totalClicks, boolean active, boolean expired) {
         this.id = id;
@@ -33,11 +33,11 @@ public class UrlSummaryResponse {
         this.expired = expired;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -113,3 +113,4 @@ public class UrlSummaryResponse {
         this.expired = expired;
     }
 }
+

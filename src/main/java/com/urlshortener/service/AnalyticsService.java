@@ -10,7 +10,6 @@ import com.urlshortener.util.UserAgentParser;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -37,7 +36,6 @@ public class AnalyticsService {
      * Records an individual click asynchronously so the user's redirection is never slowed down.
      */
     @Async
-    @Transactional
     public void recordClick(String shortCode, String ipAddress, String userAgent, String referer) {
         UserAgentParser.ClientInfo clientInfo = UserAgentParser.parse(userAgent);
 
@@ -61,7 +59,6 @@ public class AnalyticsService {
     /**
      * Fetches complete analytics data for a specific shortened URL.
      */
-    @Transactional(readOnly = true)
     public AnalyticsResponse getAnalytics(String shortCode) {
         UrlMapping mapping = urlService.getUrlMapping(shortCode);
 
@@ -143,3 +140,5 @@ public class AnalyticsService {
         return ip;
     }
 }
+
+

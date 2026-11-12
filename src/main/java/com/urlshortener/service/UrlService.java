@@ -11,7 +11,6 @@ import com.urlshortener.model.UrlMapping;
 import com.urlshortener.repository.UrlMappingRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,7 +38,6 @@ public class UrlService {
     /**
      * Creates a shortened URL from the request.
      */
-    @Transactional
     public ShortenResponse shortenUrl(ShortenRequest request) {
         validateUrl(request.getOriginalUrl());
 
@@ -87,7 +85,6 @@ public class UrlService {
     /**
      * Resolves a short code to its original destination URL for redirection.
      */
-    @Transactional(readOnly = true)
     public String resolveOriginalUrl(String shortCode) {
         UrlMapping mapping = urlMappingRepository.findByShortCode(shortCode)
             .orElseThrow(() -> new UrlNotFoundException("Short URL '" + shortCode + "' does not exist"));
@@ -106,7 +103,6 @@ public class UrlService {
     /**
      * Retrieves all URLs ordered by creation timestamp descending.
      */
-    @Transactional(readOnly = true)
     public List<UrlSummaryResponse> getAllUrls() {
         return urlMappingRepository.findAllByOrderByCreatedAtDesc()
             .stream()
@@ -117,7 +113,6 @@ public class UrlService {
     /**
      * Deactivates a URL mapping.
      */
-    @Transactional
     public void deactivateUrl(String shortCode) {
         UrlMapping mapping = urlMappingRepository.findByShortCode(shortCode)
             .orElseThrow(() -> new UrlNotFoundException("Short URL '" + shortCode + "' does not exist"));
@@ -128,7 +123,6 @@ public class UrlService {
     /**
      * Permanently deletes a URL mapping.
      */
-    @Transactional
     public void deleteUrl(String shortCode) {
         UrlMapping mapping = urlMappingRepository.findByShortCode(shortCode)
             .orElseThrow(() -> new UrlNotFoundException("Short URL '" + shortCode + "' does not exist"));
@@ -178,3 +172,5 @@ public class UrlService {
         }
     }
 }
+
+

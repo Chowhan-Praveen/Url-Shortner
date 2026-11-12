@@ -1,44 +1,28 @@
 package com.urlshortener.model;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 
-/**
- * Entity representing an individual click tracking event.
- */
-@Entity
-@Table(name = "click_analytics", indexes = {
-    @Index(name = "idx_click_short_code", columnList = "shortCode"),
-    @Index(name = "idx_click_timestamp", columnList = "clickedAt")
-})
+/** Document representing an individual click tracking event. */
+@Document(collection = "click_analytics")
 public class ClickAnalytics {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @Column(name = "short_code", nullable = false, length = 20)
+    @Indexed
     private String shortCode;
 
-    @Column(name = "clicked_at", nullable = false)
+    @Indexed
     private LocalDateTime clickedAt;
 
-    @Column(name = "ip_address", length = 45)
     private String ipAddress;
-
-    @Column(name = "user_agent", length = 512)
     private String userAgent;
-
-    @Column(name = "referer", length = 512)
     private String referer;
-
-    @Column(name = "browser", length = 64)
     private String browser;
-
-    @Column(name = "operating_system", length = 64)
     private String operatingSystem;
-
-    @Column(name = "device_type", length = 32)
     private String deviceType;
 
     public ClickAnalytics() {
@@ -57,83 +41,22 @@ public class ClickAnalytics {
         this.clickedAt = LocalDateTime.now();
     }
 
-    @PrePersist
-    protected void onCreate() {
-        if (this.clickedAt == null) {
-            this.clickedAt = LocalDateTime.now();
-        }
-    }
-
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getShortCode() {
-        return shortCode;
-    }
-
-    public void setShortCode(String shortCode) {
-        this.shortCode = shortCode;
-    }
-
-    public LocalDateTime getClickedAt() {
-        return clickedAt;
-    }
-
-    public void setClickedAt(LocalDateTime clickedAt) {
-        this.clickedAt = clickedAt;
-    }
-
-    public String getIpAddress() {
-        return ipAddress;
-    }
-
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
-    }
-
-    public String getUserAgent() {
-        return userAgent;
-    }
-
-    public void setUserAgent(String userAgent) {
-        this.userAgent = userAgent;
-    }
-
-    public String getReferer() {
-        return referer;
-    }
-
-    public void setReferer(String referer) {
-        this.referer = referer;
-    }
-
-    public String getBrowser() {
-        return browser;
-    }
-
-    public void setBrowser(String browser) {
-        this.browser = browser;
-    }
-
-    public String getOperatingSystem() {
-        return operatingSystem;
-    }
-
-    public void setOperatingSystem(String operatingSystem) {
-        this.operatingSystem = operatingSystem;
-    }
-
-    public String getDeviceType() {
-        return deviceType;
-    }
-
-    public void setDeviceType(String deviceType) {
-        this.deviceType = deviceType;
-    }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+    public String getShortCode() { return shortCode; }
+    public void setShortCode(String shortCode) { this.shortCode = shortCode; }
+    public LocalDateTime getClickedAt() { return clickedAt; }
+    public void setClickedAt(LocalDateTime clickedAt) { this.clickedAt = clickedAt; }
+    public String getIpAddress() { return ipAddress; }
+    public void setIpAddress(String ipAddress) { this.ipAddress = ipAddress; }
+    public String getUserAgent() { return userAgent; }
+    public void setUserAgent(String userAgent) { this.userAgent = userAgent; }
+    public String getReferer() { return referer; }
+    public void setReferer(String referer) { this.referer = referer; }
+    public String getBrowser() { return browser; }
+    public void setBrowser(String browser) { this.browser = browser; }
+    public String getOperatingSystem() { return operatingSystem; }
+    public void setOperatingSystem(String operatingSystem) { this.operatingSystem = operatingSystem; }
+    public String getDeviceType() { return deviceType; }
+    public void setDeviceType(String deviceType) { this.deviceType = deviceType; }
 }
