@@ -16,7 +16,13 @@ A Java 17 and Spring Boot URL shortener backed by MongoDB. It supports custom al
 3. Replace the placeholders in `MONGODB_URI` with your Atlas cluster host, database username, URL-encoded password, and database name. Keep the real URI in `.env`; Git ignores this file.
 4. Start the app with `./mvnw spring-boot:run` (Windows: `./mvnw.cmd spring-boot:run`). Spring Boot loads `.env` from the project root.
 
-The project does not contain your Atlas credentials. Do not commit `.env` or paste the URI into source files. For local MongoDB without Atlas, the default connection is `mongodb://localhost:27017/url_shortener_db`; `docker compose up -d mongodb` starts a local database.
+The project does not contain your Atlas credentials. Do not commit `.env` or paste the URI into source files. For local MongoDB without Atlas, the default connection is `mongodb://localhost:27017/url_shortener_db`; `docker compose up -d mongodb` starts a local database bound to this computer only.
+
+## Security
+
+- Keep the Atlas URI in the ignored `.env` file; only the placeholder `.env.example` belongs in Git.
+- Use a dedicated Atlas database user with access limited to `url_shortener_db`, and allow only trusted client IP addresses in Atlas Network Access.
+- MongoDB driver INFO logs are disabled so startup logs do not print credential metadata.
 
 ## Run
 
@@ -34,7 +40,6 @@ The service runs at `http://localhost:8080`. MongoDB collections and indexes are
 | --- | --- | --- |
 | URL Shortener Dashboard | `http://localhost:8080/` | Create and manage links |
 | Analytics Dashboard | `http://localhost:8080/analytics.html?code={shortCode}` | View click analytics |
-| Mongo Express (local Docker only) | `http://localhost:8081/` | Inspect local MongoDB collections |
 
 ## REST API
 
